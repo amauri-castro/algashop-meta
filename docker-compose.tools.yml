@@ -117,9 +117,9 @@ services:
         rs.initiate({
           _id: \"rs0\",
           members: [
-            { _id: 0, host: \"algashop-mongodb-1:27017\"},
-            { _id: 1, host: \"algashop-mongodb-2:27017\"},
-            { _id: 2, host: \"algashop-mongodb-3:27017\"}
+            { _id: 0, host: \"172.17.0.1:27017\"},
+            { _id: 1, host: \"172.17.0.1:27018\"},
+            { _id: 2, host: \"172.17.0.1:27019\"}
           ]
         })
       ' || true;
