@@ -9,10 +9,13 @@ services:
     depends_on:
       algashop-postgres:
         condition: service_healthy
+      algashop-redis:
+        condition: service_started
     deploy:
       resources:
         limits:
           memory: 256M
+          cpus: 2
     environment:
       SPRING_PROFILES_ACTIVE: docker
   algashop-billing:
