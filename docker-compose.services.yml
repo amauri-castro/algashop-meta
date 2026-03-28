@@ -15,9 +15,11 @@ services:
       resources:
         limits:
           memory: 256M
-          cpus: 2
+          cpus: 1
     environment:
       SPRING_PROFILES_ACTIVE: docker
+      SERVER_TOMCAT_THREADS_MAX: 10
+      SPRING_THREADS_VIRTUAL_ENABLED: true
   algashop-billing:
     image: algashop/billing:dev
     restart: no
