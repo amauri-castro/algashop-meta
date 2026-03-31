@@ -158,6 +158,27 @@ services:
     environment:
       REDIS_PASSWORD: algashop
 
+  algashop-localstack:
+    image: localstack/localstack:4.13.1
+    ports:
+      - "4566:4566"            # LocalStack Gateway
+      - "4510-4559:4510-4559"  # External services port range
+    environment:
+      DEBUG: 1 # ativa o debug
+      SERVICES: s3 # ativa o serviço S3
+    volumes:
+      - ./etc/aws/init.sh:/etc/localstack/init/ready.d/init-aws.sh
+      - ./etc/aws:/etc/aws
+    healthcheck:
+      test: curl --location 'http://localhost:4566/_localstack/health'
+      interval: 5s
+      timeout: 10s
+      start_period: 10s
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+
 volumes:
   algashop-postgres:
   algashop-mongodb-1:
