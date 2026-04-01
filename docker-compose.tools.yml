@@ -178,10 +178,7 @@ services:
       interval: 5s
       timeout: 10s
       start_period: 10s
-    deploy:
-      resources:
-        limits:
-          memory: 512M
+    mem_limit: 1g
 
 volumes:
   algashop-postgres:
