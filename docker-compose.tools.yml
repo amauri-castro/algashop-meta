@@ -166,7 +166,7 @@ services:
     environment:
       DEBUG: 1 # ativa o debug
       SERVICES: s3,secretsmanager,ssm # ativa os serviços
-      LS_ACCESS_KEY_ID: LSIAQAAAAAAVNCBMPNSG
+      LS_ACCESS_KEY_ID: test
       LS_SECRET_ACCESS_KEY: test
       LS_REGION: us-east-1
     volumes:
