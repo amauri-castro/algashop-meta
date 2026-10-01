@@ -4,6 +4,19 @@ AWS_ACCESS_KEY_ID=LS_ACCESS_KEY_ID
 AWS_SECRET_ACCESS_KEY=LS_SECRET_ACCESS_KEY
 AWS_DEFAULT_REGION=LS_REGION
 
+openssl genpkey -algorithm RSA -out /tmp/algashop-private-key.pem -pkeyopt rsa_keygen_bits:2048
+
+PRIVATE_KEY_B64=$(base64 -w 0 /tmp/algashop-private-key.pem)
+
+PRIVATE_KEY_ID=$(openssl rand -hex 16)
+
+printf '{"privateKeyId":"%s","privateKey":"%s"}' \
+  "$PRIVATE_KEY_ID" "$PRIVATE_KEY_B64" > /tmp/secret.json
+
+awslocal secretsmanager create-secret \
+  --name /config/algashop/authorization-server/rsa-key \
+  --secret-string file:///tmp/secret.json
+
 awslocal secretsmanager create-secret \
     --name /secret/algashop/authorization-server/database \
     --secret-string "{\"username\":\"postgres\",\"password\":\"postgres\"}"
@@ -20,10 +33,21 @@ awslocal ssm put-parameter \
     --value "http://auth.algashop.local:8081" \
     --type String
 
+# Senha = testing123
 awslocal ssm put-parameter \
     --name /config/algashop/authorization-server/clients/algashop-test/secret \
     --value '{bcrypt}$2a$10$Fmw0PqHGZAYOqstR7ct7xuTkbljbE3uvDLE8JmuXxu.GttYxlKytW' \
     --type SecureString
+
+awslocal ssm put-parameter \
+    --name /config/algashop/shared/auth-server/url \
+    --value "http://auth.algashop.local:8081" \
+    --type String
+
+awslocal ssm put-parameter \
+    --name /config/algashop/authorization-server/clients/algashop-ecommerce-web/redirect-uris \
+    --value 'http://algashop.local:9080/login/oauth2/code/algashop-ecommerce-web,https://oauth.pstmn.io/v1/callback' \
+    --type StringList
 
 awslocal s3 mb s3://algashop-product-image
 
