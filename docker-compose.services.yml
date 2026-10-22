@@ -40,7 +40,7 @@ services:
     image: algashop/product-catalog:dev
     restart: no
     ports:
-      - "8083:8083"
+      - "8083"
     depends_on:
       algashop-mongodb-1:
         condition: service_healthy
