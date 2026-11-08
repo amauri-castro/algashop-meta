@@ -40,3 +40,6 @@
 [submodule "apps/ecommerce"]
 	path = apps/ecommerce
 	url = git@github.com:amauri-castro/ems-algashop-ecommerce.git
+[submodule "apps/admin"]
+	path = apps/admin
+	url = git@github.com:amauri-castro/ems-algashop-admin.git
