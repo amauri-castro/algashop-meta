@@ -33,3 +33,10 @@
 	path = microservices/gateway-ecommerce
 	url = git@github.com:amauri-castro/ems-algashop-gateway-ecommerce.git
 	branch = main
+[submodule "microservices/gateway-admin"]
+	path = microservices/gateway-admin
+	url = git@github.com:amauri-castro/ems-algashop-gateway-admin.git
+	branch = main
+[submodule "apps/ecommerce"]
+	path = apps/ecommerce
+	url = git@github.com:amauri-castro/ems-algashop-ecommerce.git
